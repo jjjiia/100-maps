@@ -25,7 +25,7 @@ function dataDidLoad(error, geojson1, city1, overlap, neighbors,neighborhoodDict
 	d3.select("#title").html(toTitleCase(city.replace("_"," ")))
 	var subtitle = d3.select("#subtitle").html()
 	subtitle = subtitle.replace("current city", toTitleCase(city))
-	subtitle = subtitle.replace(" 25%",global.minDifference +"%")
+	subtitle = subtitle.replace("25%",global.minDifference +"%")
 	d3.select("#subtitle").html(subtitle)
 	global.neighbors = neighbors
 	global.center = global.center

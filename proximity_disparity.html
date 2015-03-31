@@ -3,7 +3,7 @@
   <head>
 	  <meta charset="UTF-8">
 	  
-	<title>New York City Disparity and Proximity</title>
+	<title>Disparity and Proximity</title>
 	<script src="static/javascripts/d3.v3.min.js"></script>
 	<script src="static/javascripts/topojson.v1.min.js"></script>
 	<script src="static/javascripts/jquery.min.js"></script>
@@ -40,9 +40,9 @@
 
 	<div id="scale"></div>
 	<div id = "header">
-			<div id = "title">New York City</div>
+			<div id = "title"></div>
 			<div id = "subtitle">
-				Inequality fractures the city, this map draws boundaries formed by income disparity inside New York City
+				Inequality fractures the city, this map draws boundaries formed by income disparity inside current city
 				<a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;">... more</a></p>
     			<div id="example" class="more">
 					<p>
@@ -78,11 +78,19 @@
 	</div>
 	
 	<script type="text/javascript" charset="utf-8">
+	var center = [-87.7,41.95]
+	var minDifference = 25
+	var scale=70000
+	var water = null
 	var urlArray = document.URL.split("/")
 	var city =urlArray[urlArray.length-1].split("#")[1]
+//	if(city == null){
+//		city = "boston"
+//	}
 	//city = city.split(",")[0]
-	console.log(urlArray)
 	console.log(city)
+var city_centers = {"new_york":[-74.1, 40.8],"chicago":[-87.7,41.95],"austin":[-97.8,30.4],"boston":[-71.15,42.4],"dallas":[-97.2,33],"houston":[-95.6,30],"los_angeles":[-118.3, 34.2],"san_francisco":[ -122.38,37.79],"atlanta":[-84.6, 33.85]}
+
 	var global = {
 		usMapWidth:1200,
 		usMapHeight:900,
@@ -91,14 +99,14 @@
 		gradientStart:"#fff",
 		gradientEnd:"#ddd",
 		scale:80000,
-		center:[-74.1, 40.8],
+		center:city_centers[city],
 		neighbors:null,
 		translate:[0,0],
 		translateScale:1,
 		mapFillColor:null,
-		minDifference:25,
-		city:city
+		minDifference:25
 	}
+
 	var csv1 = "data/"+city+"/"+city+"_income.csv"
 	var geojson1 = "data/"+city+"/"+city+"_bg.geojson"
 	var overlap = "data/"+city+"/"+city+"_overlap.csv"
